@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Olá, {{ current_user.nome }}!</h1>
+  <p><strong>Email:</strong> {{ current_user.email }}</p>
+
+  <hr>
+
+  <h2>Seus Pets Cadastrados</h2>
+
+  {% if items %}
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+      {% for pet in items %}
+        <div style="border: 1px solid #ccc; padding: 15px; width: 300px;">
+          <h3>{{ pet.nome }}</h3>
+          <p><strong>Tipo:</strong> {{ pet.tipo }}</p>
+          <p><strong>Idade:</strong> {{ pet.idade }}</p>
+          <p><strong>Status:</strong> {{ pet.status }}</p>
+          <p><strong>Descrição:</strong><br>{{ pet.descricao }}</p>
+          <p><strong>Contato:</strong> {{ pet.contato }}</p>
+
+          {% if pet.imagem %}
+            <img src="{{ url_for('static', filename='uploads/' ~ pet.imagem) }}" alt="Imagem de {{ pet.nome }}" style="max-width: 100%; height: auto;">
+          {% else %}
+            <p><em>Sem imagem</em></p>
+          {% endif %}
+
+          <div style="margin-top: 10px;">
+            <a href="{{ url_for('update', id=pet.id) }}">Editar</a> |
+            <a href="{{ url_for('delete', id=pet.id) }}" onclick="return confirm('Tem certeza que deseja excluir este pet?')">Excluir</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Você ainda não cadastrou nenhum pet.</p>
+    <a href="{{ url_for('create') }}">Cadastrar primeiro pet</a>
+  {% endif %}
+
+{% endblock %}
