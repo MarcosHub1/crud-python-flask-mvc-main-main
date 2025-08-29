@@ -9,9 +9,9 @@
   <h2>Seus Pets Cadastrados</h2>
 
   {% if items %}
-    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div class="pets-container">
       {% for pet in items %}
-        <div style="border: 1px solid #ccc; padding: 15px; width: 300px;">
+        <div class="pet-card">
           <h3>{{ pet.nome }}</h3>
           <p><strong>Tipo:</strong> {{ pet.tipo }}</p>
           <p><strong>Idade:</strong> {{ pet.idade }}</p>
@@ -20,14 +20,18 @@
           <p><strong>Contato:</strong> {{ pet.contato }}</p>
 
           {% if pet.imagem %}
-            <img src="{{ url_for('static', filename='uploads/' ~ pet.imagem) }}" alt="Imagem de {{ pet.nome }}" style="max-width: 100%; height: auto;">
+            <img src="{{ url_for('static', filename='uploads/' ~ pet.imagem) }}" alt="Imagem de {{ pet.nome }}">
           {% else %}
             <p><em>Sem imagem</em></p>
           {% endif %}
 
-          <div style="margin-top: 10px;">
-            <a href="{{ url_for('update', id=pet.id) }}">Editar</a> |
-            <a href="{{ url_for('delete', id=pet.id) }}" onclick="return confirm('Tem certeza que deseja excluir este pet?')">Excluir</a>
+          <div class="pet-actions">
+            <a class="btn-edit" href="{{ url_for('update', id=pet.id) }}">Editar</a>
+            
+            <form action="{{ url_for('delete', id=pet.id) }}" method="POST" style="display:inline;">
+            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este pet?')">Excluir</button>
+            </form>
+
           </div>
         </div>
       {% endfor %}
@@ -36,5 +40,4 @@
     <p>Você ainda não cadastrou nenhum pet.</p>
     <a href="{{ url_for('create') }}">Cadastrar primeiro pet</a>
   {% endif %}
-
 {% endblock %}
