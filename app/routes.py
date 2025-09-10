@@ -1,14 +1,14 @@
-from flask import request, redirect, url_for, render_template, flash
+from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from app import app, db
+from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User, Pet
+from app import app, db
 
 @app.route('/')
 def index():
     items_ = Pet.query.all()
     return render_template('index.html', items=items_)
 
-# Cadastro
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -16,25 +16,24 @@ def register():
         email = request.form['email']
         senha = request.form['senha']
 
-        # Verifica se já existe um usuário com esse email
+        # Verifica se já existe usuário com esse email
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            flash('Email já cadastrado!')
+            flash("Já existe um usuário com esse email.")
             return redirect(url_for('register'))
 
-        new_user = User(nome=nome, email=email)
-        new_user.set_password(senha)
+        hashed_password = generate_password_hash(senha, method='sha256')
+        new_user = User(nome=nome, email=email, senha=hashed_password)
 
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Cadastro realizado com sucesso! Faça login.')
+        flash("Usuário cadastrado com sucesso! Faça login.")
         return redirect(url_for('login'))
 
     return render_template('register.html')
 
 
-# Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -43,22 +42,20 @@ def login():
 
         user = User.query.filter_by(email=email).first()
 
-        if user and user.check_password(senha):
+        if user and check_password_hash(user.senha, senha):
             login_user(user)
-            flash('Login realizado com sucesso!')
-            return redirect(url_for('index'))
+            return redirect(url_for('perfil'))
         else:
-            flash('Email ou senha incorretos.')
+            flash("Email ou senha incorretos.")
 
     return render_template('login.html')
 
 
-# Logout
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    flash('Você saiu da sua conta.')
+    flash("Você saiu da sua conta.")
     return redirect(url_for('login'))
 
 import uuid
