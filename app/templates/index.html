@@ -4,7 +4,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Pets cadastrados</h2>
-    <a href="{{ url_for('create') }}" class="btn btn-success">+ Novo pet</a>
   </div>
 
   
@@ -36,21 +35,21 @@
 
             <div class="d-flex gap-2">
               <!-- Abre modal com mais informações e edição -->
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{ item.id }}">Ver mais / Editar</button>
+              <!-- <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{ item.id }}">Ver mais / Editar</button> -->
               <!-- Delete -->
-              <a href="{{ url_for('delete', id=item.id) }}"
+              <!-- <a href="{{ url_for('delete', id=item.id) }}"
                  class="btn btn-danger btn-sm"
                  onclick="return confirm('Tem certeza que deseja deletar {{ item.nome }}?');">
                  Deletar
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-
+    
     <!-- Modal: mostra detalhes e formulário de edição -->
-    <div class="modal fade" id="modal{{ item.id }}" tabindex="-1" aria-labelledby="modalLabel{{ item.id }}" aria-hidden="true">
+    <!-- <div class="modal fade" id="modal{{ item.id }}" tabindex="-1" aria-labelledby="modalLabel{{ item.id }}" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
           <form method="POST" action="{{ url_for('update', id=item.id) }}" enctype="multipart/form-data">
@@ -121,7 +120,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> -->
 
     {% endfor %}
   </div>

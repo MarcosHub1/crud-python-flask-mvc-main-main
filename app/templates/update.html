@@ -1,12 +1,34 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<h1>Update Item</h1>
-<form method="POST" enctype="multipart/form-data">
-  <input name="nome" value="{{ item.nome }}" required />
-  <!-- outros campos... -->
-  <input type="file" name="imagem" />
-  <button type="submit">Salvar</button>
+<form action="{{ url_for('update', id=pet.id) }}" method="POST" enctype="multipart/form-data">
+    <div>
+        <label>Nome:</label>
+        <input type="text" name="nome" value="{{ pet.nome }}" required>
+    </div>
+    <div>
+        <label>Tipo:</label>
+        <input type="text" name="tipo" value="{{ pet.tipo }}" required>
+    </div>
+    <div>
+        <label>Idade:</label>
+        <input type="number" name="idade" value="{{ pet.idade }}" required>
+    </div>
+    <div>
+        <label>Descrição:</label>
+        <textarea name="descricao" required>{{ pet.descricao }}</textarea>
+    </div>
+    <div>
+        <label>Status:</label>
+        <input type="text" name="status" value="{{ pet.status }}" required>
+    </div>
+    <div>
+        <label>Contato:</label>
+        <input type="text" name="contato" value="{{ pet.contato }}" required>
+    </div>
+    <div>
+        <label>Imagem:</label>
+        <input type="file" name="imagem">
+        {% if pet.imagem %}
+            <p>Imagem atual: {{ pet.imagem }}</p>
+        {% endif %}
+    </div>
+    <button type="submit">Salvar alterações</button>
 </form>
-
-{% endblock %}

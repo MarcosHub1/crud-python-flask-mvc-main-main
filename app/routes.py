@@ -124,9 +124,9 @@ def update(id):
         flash("Pet atualizado com sucesso!")
         return redirect(url_for('index'))
 
-    return render_template('update.html', item=item)
+    return render_template('update.html', pet=item)
 
-@app.route('/delete/<int:id>', methods=['POST'])
+@app.route('/delete/<int:id>', methods=['GET'])
 @login_required
 def delete(id):
     item = Pet.query.get_or_404(id)
