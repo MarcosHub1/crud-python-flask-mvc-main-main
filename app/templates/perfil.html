@@ -3,14 +3,28 @@
 {% block content %}
   <h1>Olá, {{ current_user.nome }}!</h1>
   <p><strong>Email:</strong> {{ current_user.email }}</p>
+          <a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a>
+
 
   <hr>
 
   <h2>Seus Pets Cadastrados</h2>
+  
+  <form method="GET" action="{{ url_for('perfil') }}" class="mb-4 d-flex" role="search">
+  <input 
+    class="form-control me-2"
+    type="search"
+    name="q"
+    placeholder="Pesquisar por nome ou descrição"
+    value="{{ request.args.get('q', '') }}"
+  >
+  <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+</form>
 
   {% if items %}
     <div class="row">
     {% for item in items %}
+    
     <div class="col-md-4 mb-4">
       <div class="card h-100 shadow-sm">
         {% if item.imagem %}

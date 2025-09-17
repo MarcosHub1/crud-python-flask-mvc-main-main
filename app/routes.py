@@ -3,10 +3,24 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User, Pet
 from app import app, db
+from sqlalchemy import or_
 
 @app.route('/')
 def index():
-    items_ = Pet.query.all()
+    termo = request.args.get('q', '')  # pega o termo digitado na busca
+
+    # começa pegando todos os pets
+    query = Pet.query
+
+    # se houver termo de pesquisa, filtra por nome ou descrição
+    if termo:
+        query = query.filter(
+            or_(
+                Pet.nome.ilike(f"%{termo}%"),
+                Pet.descricao.ilike(f"%{termo}%")
+            )
+        )
+    items_ = query.all()
     return render_template('index.html', items=items_)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -140,8 +154,26 @@ def delete(id):
     flash("Pet removido com sucesso!")
     return redirect(url_for('perfil'))
 
+
+
 @app.route('/perfil')
 @login_required
 def perfil():
-    meus_pets = Pet.query.filter_by(user_id=current_user.id).all()
+    termo = request.args.get('q', '')  # pega o termo digitado na barra de pesquisa
+
+    # começa buscando apenas os pets do usuário logado
+    query = Pet.query.filter_by(user_id=current_user.id)
+
+    # se o usuário digitou algo, filtra por nome OU descrição
+    if termo:
+        query = query.filter(
+            or_(
+                Pet.nome.ilike(f"%{termo}%"),
+                Pet.descricao.ilike(f"%{termo}%")
+            )
+        )
+
+    meus_pets = query.all()
+
     return render_template('perfil.html', items=meus_pets)
+

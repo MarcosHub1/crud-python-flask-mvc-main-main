@@ -1,6 +1,23 @@
 body {
-    padding-top: 20px;
+    background-color: #E4CD91;
+
 }
+
+nav{
+    /* Estilo para a barra de navegação fixa no topo */
+    display: flex; /* Usando o modelo flex para organizar os itens */
+    justify-content: space-between; /* Distribui os itens com espaço entre eles */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    background-color: #262724; /* Cor de fundo escura */
+    padding: 10px 25px; /* Espaçamento interno */
+    color: #fff; /* Cor do texto branca */
+    position: fixed; /* Fixa a navbar no topo da página */
+    width: 100%; /* Ocupa toda a largura da tela */
+    top: 0; /* Posiciona a navbar no topo */
+    z-index: 1000; /* Garante que a navbar fique sobre outros elementos */
+
+}
+
 * {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
@@ -9,8 +26,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 body {
-    background-color: #435165;
-    margin: 0;
+    background-color: #E4CD91;
+    margin: 0; 
 }
 .login, .register {
     width: 400px;
@@ -18,6 +35,12 @@ body {
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
     margin: 100px auto;
 }
+
+body, html{
+    padding: 0;
+    margin: 0;
+}
+
 .login h1, .register h1 {
     text-align: center;
     color: #5b6574;
@@ -190,3 +213,13 @@ body.loggedin {
     border: none;
     cursor: pointer;
 }
+
+.navbar-custom {
+  background-color: #409FFF; /* azul */
+  position: sticky;
+    top: 0;
+}
+/* 
+.bomprapet {
+    
+} */
