@@ -1,0 +1,117 @@
+/* Fundo geral */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Caixa principal */
+.container {
+  width: 600px;
+  background: url('fundo.jpg') center/cover no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+/* Barra azul superior */
+.top-bar {
+  background: #2196f3;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+}
+
+.logo-area .logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.top-bar h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.top-bar nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.top-bar nav a.active {
+  text-decoration: underline;
+}
+
+/* Formulário */
+.form-area {
+  padding: 30px;
+  backdrop-filter: blur(2px);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+input {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+}
+
+/* Botões */
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  background: #ffc107;
+  color: #000;
+  border: none;
+  padding: 10px 16px;
+  font-size: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background: #ffc107;
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: #e0a800;
+}
+

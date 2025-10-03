@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BomPraPet - Cadastro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Barra superior -->
+    <header class="top-bar">
+      <div class="logo-area">
+        <img src="logo.png" alt="Logo BomPraPet" class="logo">
+        <h1>BomPraPet</h1>
+      </div>
+      <nav>
+        <a href="#">Entrar</a> |
+        <a href="#" class="active">Cadastro</a>
+      </nav>
+    </header>
+
+    <!-- Conteúdo principal -->   
+    <main class="form-area">
+      <form>
+        <div class="row">
+          <input type="text" placeholder="Nome" required>
+          <input type="text" placeholder="Telefone" required>
+        </div>
+
+        <input type="email" placeholder="Email" required>
+
+        <input type="text" placeholder="CPF" required>
+
+        <div class="row">
+          <input type="text" placeholder="Estado" required>
+          <input type="text" placeholder="Cidade" required>
+        </div>
+
+        <div class="buttons">
+          <button type="button" class="back-btn">⬅</button>
+          <button type="submit" class="submit-btn">Cadastrar</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+</body>
+</html>
