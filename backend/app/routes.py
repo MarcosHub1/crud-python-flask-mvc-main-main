@@ -1,9 +1,13 @@
-from flask import request, render_template, redirect, url_for, flash
+import os, uuid
+from flask import request, render_template, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User, Pet
 from app import app, db
 from sqlalchemy import or_
+from dotenv import load_dotenv
+
+
 
 @app.route('/')
 def index():
@@ -72,9 +76,9 @@ def logout():
     flash("Você saiu da sua conta.")
     return redirect(url_for('login'))
 
-import uuid
-import os
+
 from flask import current_app
+from app.utils.clip_model import gerar_descricao_clip  # adicione no topo
 
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -89,17 +93,31 @@ def create():
         imagem = request.files['imagem'] if 'imagem' in request.files else None
 
         filename = None
+        caminho_imagem = None
         if imagem:
-            # Gera um nome único pro arquivo
             filename = f"{uuid.uuid4().hex}_{imagem.filename}"
             upload_path = os.path.join(current_app.root_path, "static/uploads", filename)
             imagem.save(upload_path)
+            caminho_imagem = upload_path
+
+        # 🧠 Gera descrição automática se houver imagem
+        descricao_auto = ""
+        if caminho_imagem:
+            try:
+                descricao_auto = gerar_descricao_clip(caminho_imagem)
+            except Exception as e:
+                print("Erro ao gerar descrição com CLIP:", e)
+
+        # Junta a descrição escrita pelo usuário com a gerada pela IA
+        descricao_final = descricao
+        if descricao_auto:
+            descricao_final = f"{descricao.strip()} | Descrição automática: {descricao_auto}"
 
         new_pet = Pet(
             nome=nome,
             tipo=tipo,
             idade=idade,
-            descricao=descricao,
+            descricao=descricao_final,
             status=status,
             contato=contato,
             imagem=filename,
@@ -108,7 +126,7 @@ def create():
 
         db.session.add(new_pet)
         db.session.commit()
-        flash("Pet cadastrado com sucesso!")
+        flash("Pet cadastrado com sucesso! Descrição automática gerada.")
 
         return redirect(url_for('perfil'))
 

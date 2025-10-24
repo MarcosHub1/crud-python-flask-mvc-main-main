@@ -4,4 +4,4 @@ Werkzeug==2.2.2
 authlib==0.15.4
 pymysql
 requests
-pip install openai
+
