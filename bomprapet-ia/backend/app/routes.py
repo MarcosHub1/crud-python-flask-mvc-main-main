@@ -6,6 +6,7 @@ from app.models import User, Pet
 from app import app, db
 from sqlalchemy import or_
 from dotenv import load_dotenv
+from app.utils.clip_model import gerar_descricao_clip
 
 
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo_pagina }}</title>
+</head>
+<body>
+    <h1>Bem-vindo, {{ nome_usuario }}!</h1>
+
+    {% if itens %}
+        <h2>Seus itens:</h2>
+        <ul>
+            {% for item in itens %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você não tem itens.</p>
+    {% endif %}
+</body>
+</html>
